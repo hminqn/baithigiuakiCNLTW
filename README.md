@@ -101,6 +101,7 @@ Không chạy trên database đang được sửa đổi đồng thời.
 Kết quả đã kiểm chứng trên máy này: **87 kiểm tra tích hợp đều đạt**, build không có lỗi.
 NuGet có cảnh báo NU1900 vì môi trường không truy cập được nguồn dữ liệu kiểm tra lỗ hổng;
 restore và build vẫn thành công từ các gói đã có trên máy.
+link demo https://drive.google.com/file/d/1Qma-DsJoh4DPFwUh2b9ZSJC2Bp-6vONl/view?usp=sharing
 
 ## Nộp bài
 
