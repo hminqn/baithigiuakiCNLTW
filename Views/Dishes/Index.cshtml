@@ -7,7 +7,7 @@
 <form method="get" asp-action="Index" class="filter-panel">
     <div class="filters">
         <div class="field search-field"><label asp-for="Search">@T["Search"]</label><input asp-for="Search" placeholder="@T["SearchPlaceholder"]" /></div>
-        <div class="field"><label asp-for="CategoryId">@T["Category"]</label><select asp-for="CategoryId"><option value="">@T["AllCategories"]</option>@foreach (var category in Model.Categories) { <option value="@category.Id">@category.Name</option> }</select></div>
+        <div class="field"><label asp-for="CategoryId">@T["Category"]</label><select asp-for="CategoryId"><option value="">@T["AllCategories"]</option>@foreach (var category in Model.Categories) { <option value="@category.Id">@T.CategoryName(category.Name)</option> }</select></div>
         <div class="field"><label asp-for="Status">@T["Status"]</label><select asp-for="Status"><option value="">@T["AllStatuses"]</option><option value="available">@T["Available"]</option><option value="unavailable">@T["Unavailable"]</option></select></div>
         <div class="field"><label asp-for="MinPrice">@T["MinPrice"]</label><input asp-for="MinPrice" type="number" step="0.01" min="0" placeholder="0" /></div>
         <div class="field"><label asp-for="MaxPrice">@T["MaxPrice"]</label><input asp-for="MaxPrice" type="number" step="0.01" min="0" placeholder="100000" /></div>
@@ -33,7 +33,7 @@ else
                 <span class="status-badge @(dish.IsAvailable ? "available" : "unavailable")"><i></i>@T[dish.IsAvailable ? "Available" : "Unavailable"]</span>
             </a>
             <div class="card-body">
-                <div class="category-label">@dish.DishCategory.Name</div>
+                <div class="category-label">@T.CategoryName(dish.DishCategory.Name)</div>
                 <h3><a asp-action="Details" asp-route-id="@dish.Id">@dish.Name</a></h3>
                 <p class="dish-description">@dish.Description</p>
                 <div class="dish-meta"><span>◷ @dish.PreparationTime @T["Minutes"]</span><span class="time-badge @(dish.PreparationTime <= 15 ? "quick" : "")">@T[dish.PreparationTime <= 15 ? "Quick" : "Regular"]</span></div>

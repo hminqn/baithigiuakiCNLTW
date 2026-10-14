@@ -84,7 +84,8 @@ Chỉ dùng script khởi tạo khi chưa có ba bảng; cách chạy tự độ
 | scripts/smoke-tests.ps1 | Kiểm thử tích hợp HTTP với dữ liệu tạm |
 
 Ảnh mẫu là SVG nội bộ của dự án, nên demo không cần kết nối dịch vụ ảnh bên ngoài.
-Tên và mô tả dữ liệu không dịch tự động, đúng phạm vi đề bài.
+Ba loại mẫu hiển thị Anh–Việt: Main courses / Món chính, Starters / Khai vị, Desserts / Tráng miệng; mô tả loại mẫu cũng có bản dịch.
+Tên và mô tả món ăn, cùng tên loại tự nhập chưa có trong từ điển, được giữ nguyên. Form sửa loại món hiển thị dữ liệu gốc để bạn chỉnh sửa.
 
 ## Kiểm thử
 
@@ -97,7 +98,7 @@ Mở ứng dụng trước, sau đó ở terminal PowerShell 7 khác:
 Bộ kiểm thử chính tạo dữ liệu có tên SmokeTest rồi xóa dữ liệu đó khi xong.
 Kiểm thử URL ảnh ngay trên form món: `./scripts/cover-url-tests.ps1 -BaseUrl http://localhost:5080` (29 kiểm tra riêng, tạo và dọn dữ liệu tạm).
 Không chạy trên database đang được sửa đổi đồng thời.
-Kết quả đã kiểm chứng trên máy này: **78 kiểm tra tích hợp đều đạt**, build không có lỗi.
+Kết quả đã kiểm chứng trên máy này: **87 kiểm tra tích hợp đều đạt**, build không có lỗi.
 NuGet có cảnh báo NU1900 vì môi trường không truy cập được nguồn dữ liệu kiểm tra lỗ hổng;
 restore và build vẫn thành công từ các gói đã có trên máy.
 

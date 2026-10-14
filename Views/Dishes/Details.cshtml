@@ -2,12 +2,12 @@
 @{ var dish = Model.Dish; ViewData["Title"] = dish.Name; }
 <a class="back-link" asp-action="Index">← @T["Back"]</a>
 <section class="detail-top">
-    <div><div class="eyebrow">@dish.DishCategory.Name</div><h1>@dish.Name</h1><p>@dish.Description</p>
+    <div><div class="eyebrow">@T.CategoryName(dish.DishCategory.Name)</div><h1>@dish.Name</h1><p>@dish.Description</p>
         <div class="detail-badges"><span class="status-badge @(dish.IsAvailable ? "available" : "unavailable")">@T[dish.IsAvailable ? "Available" : "Unavailable"]</span><span class="time-badge">@T[dish.PreparationTime <= 15 ? "Quick" : "Regular"]</span></div>
     </div>
     <div class="actions"><a class="button outline" asp-action="Delete" asp-route-id="@dish.Id">@T["Delete"]</a><a class="button primary" asp-action="Edit" asp-route-id="@dish.Id">@T["EditDish"] ↗</a></div>
 </section>
-<div class="detail-stats"><div><span>@T["Price"]</span><strong>@T.Price(dish.Price) ₫</strong></div><div><span>@T["PreparationTime"]</span><strong>@dish.PreparationTime @T["Minutes"]</strong></div><div><span>@T["Category"]</span><strong>@dish.DishCategory.Name</strong></div></div>
+<div class="detail-stats"><div><span>@T["Price"]</span><strong>@T.Price(dish.Price) ₫</strong></div><div><span>@T["PreparationTime"]</span><strong>@dish.PreparationTime @T["Minutes"]</strong></div><div><span>@T["Category"]</span><strong>@T.CategoryName(dish.DishCategory.Name)</strong></div></div>
 <div class="results-heading"><h2>@T["Images"] <span class="count">@dish.Images.Count</span></h2><a class="button outline" href="#add-image">＋ @T["AddImageUrl"]</a></div>
 @if (dish.Images.Count == 0) { <div class="empty small"><h2>@T["NoImages"]</h2><p>@T["NoImagesHint"]</p></div> }
 else

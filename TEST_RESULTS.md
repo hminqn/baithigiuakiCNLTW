@@ -3,8 +3,8 @@
 Ngày: 14/10/2026. Sinh viên: Hoàng Minh Quân — BIT240194.
 
 - dotnet build --no-restore: thành công, 0 lỗi.
-- scripts/smoke-tests.ps1: 49/49 kiểm tra tích hợp HTTP thành công trên SQL Server LocalDB.
-- scripts/cover-url-tests.ps1: 29/29 kiểm tra URL ảnh trực tiếp trên form Thêm/Sửa món thành công; tổng 78 kiểm tra.
+- scripts/smoke-tests.ps1: 58/58 kiểm tra tích hợp HTTP thành công trên SQL Server LocalDB.
+- scripts/cover-url-tests.ps1: 29/29 kiểm tra URL ảnh trực tiếp trên form Thêm/Sửa món thành công; tổng 87 kiểm tra.
 - Bản cập nhật có ô URL ảnh đại diện và ảnh hiện tại ngay dưới Mô tả. Hỗ trợ link HTTP/HTTPS trên mạng, URL trống giữ ảnh cũ, URL sai không lưu thay đổi món/ảnh. Giữ ID ảnh đại diện và các ảnh phụ.
 - Kiểm thử ở cổng 5081; phiên người dùng trên 5080 được giữ nguyên.
 - SQL trực tiếp: database BIT240194_MID có đúng ba bảng ứng dụng.
@@ -22,3 +22,5 @@ Các gói cần dùng đã có trên máy; restore/build thành công. Video dem
 DEMO.md chứa kịch bản quay theo đề. Chưa thực hiện nộp EDUX.
 
 - Cập nhật sửa URL ảnh: kiểm thử URL hợp lệ/sai/trống/thiếu, giữ ảnh đại diện và món liên kết, dữ liệu không đổi khi validation lỗi, UI/validation tiếng Việt, GET/POST Id không tồn tại. Bản cập nhật được thử với named pipe của cùng LocalDB khi API tìm phiên LocalDB báo lỗi khởi động.
+
+- Bản dịch loại món: Main courses / Món chính, Starters / Khai vị, Desserts / Tráng miệng được kiểm chứng ở bộ lọc, thẻ món, dropdown Create/Edit, trang Details, danh sách/xác nhận xóa loại. ID bộ lọc và tên gốc khi sửa loại được giữ đúng.

@@ -5,7 +5,7 @@
 else {
 <div class="table-panel"><table><thead><tr><th>@T["Name"]</th><th>@T["Description"]</th><th>@T["DishCount"]</th><th></th></tr></thead><tbody>
 @foreach (var category in Model) {
-<tr><td><strong>@category.Name</strong></td><td>@category.Description</td><td><a asp-controller="Dishes" asp-action="Index" asp-route-categoryId="@category.Id" class="count">@category.Dishes.Count</a></td><td><div class="actions"><a class="text-link" asp-action="Edit" asp-route-id="@category.Id">@T["Edit"]</a><a class="text-link danger" asp-action="Delete" asp-route-id="@category.Id">@T["Delete"]</a></div></td></tr>
+<tr><td><strong>@T.CategoryName(category.Name)</strong></td><td>@T.CategoryDescription(category.Description)</td><td><a asp-controller="Dishes" asp-action="Index" asp-route-categoryId="@category.Id" class="count">@category.Dishes.Count</a></td><td><div class="actions"><a class="text-link" asp-action="Edit" asp-route-id="@category.Id">@T["Edit"]</a><a class="text-link danger" asp-action="Delete" asp-route-id="@category.Id">@T["Delete"]</a></div></td></tr>
 }
 </tbody></table></div>
 }

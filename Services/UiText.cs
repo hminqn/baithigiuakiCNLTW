@@ -5,6 +5,20 @@ public class UiText
     public bool Vietnamese => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "vi";
     public string this[string key] => Message(key);
     public string Price(decimal value) => value.ToString(decimal.Truncate(value) == value ? "N0" : "N2");
+    public string CategoryName(string name) => CategoryNames.TryGetValue(name.Trim(), out var key) ? this[key] : name;
+    public string? CategoryDescription(string? description) => description is not null && CategoryDescriptions.TryGetValue(description.Trim(), out var key) ? this[key] : description;
+    private static readonly Dictionary<string, string> CategoryNames = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["Main courses"] = "MainCourses", ["Món chính"] = "MainCourses",
+        ["Starters"] = "Starters", ["Khai vị"] = "Starters",
+        ["Desserts"] = "Desserts", ["Tráng miệng"] = "Desserts"
+    };
+    private static readonly Dictionary<string, string> CategoryDescriptions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["Freshly prepared Vietnamese favourites."] = "MainCoursesDescription",
+        ["Small plates to begin your meal."] = "StartersDescription",
+        ["A sweet finish."] = "DessertsDescription"
+    };
     public static string Message(string key)
     {
         if (!Words.TryGetValue(key, out var pair)) return key;
@@ -14,6 +28,12 @@ public class UiText
     {
         ["App"] = ("The Kitchen", "Bếp Nhà"),
         ["Dishes"] = ("Dishes", "Món ăn"), ["Categories"] = ("Categories", "Loại món"),
+        ["MainCourses"] = ("Main courses", "Món chính"),
+        ["Starters"] = ("Starters", "Khai vị"),
+        ["Desserts"] = ("Desserts", "Tráng miệng"),
+        ["MainCoursesDescription"] = ("Freshly prepared Vietnamese favourites.", "Các món Việt quen thuộc được chế biến tươi ngon."),
+        ["StartersDescription"] = ("Small plates to begin your meal.", "Các món nhẹ để bắt đầu bữa ăn."),
+        ["DessertsDescription"] = ("A sweet finish.", "Kết thúc bữa ăn với món ngọt."),
         ["MenuTitle"] = ("Your menu, thoughtfully managed.", "Quản lý thực đơn của bạn."),
         ["MenuIntro"] = ("Find a dish, refine your menu, and keep every detail in one place.", "Tra cứu món ăn, cập nhật thực đơn và quản lý mọi thông tin tại một nơi."),
         ["Admin"] = ("MENU MANAGEMENT", "QUẢN LÝ THỰC ĐƠN"), ["Student"] = ("Student", "Sinh viên"),

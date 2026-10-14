@@ -1,6 +1,6 @@
 @model DishCategory_BIT240194
 @{ ViewData["Title"] = T["DeleteCategoryTitle"]; }
-<div class="editor-panel delete-panel"><div class="eyebrow">@T["Categories"]</div><h1>@T["DeleteCategoryTitle"]</h1><h2>@Model.Name</h2>
+<div class="editor-panel delete-panel"><div class="eyebrow">@T["Categories"]</div><h1>@T["DeleteCategoryTitle"]</h1><h2>@T.CategoryName(Model.Name)</h2>
 <div asp-validation-summary="All" class="validation"></div>
 @if (Model.Dishes.Count > 0) { <p class="validation">@T["CategoryInUse"]</p> }
 <form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Id" /><div class="form-actions"><a class="button outline" asp-action="Index">@T["Cancel"]</a><button class="button destructive" type="submit">@T["Delete"]</button></div></form></div>
