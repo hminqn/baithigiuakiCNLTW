@@ -1,0 +1,2 @@
+@{ var code = (int)(ViewData["Code"] ?? 500); ViewData["Title"] = T[code == 404 ? "NotFoundTitle" : "ErrorTitle"]; }
+<div class="empty error-page"><div class="eyebrow">@code</div><h1>@ViewData["Title"]</h1><p>@T[code == 404 ? "NotFoundHint" : code == 500 ? "ErrorHint" : "RequestError"]</p><a class="button primary" asp-controller="Dishes" asp-action="Index">← @T["Back"]</a></div>

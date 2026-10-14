@@ -1,0 +1,45 @@
+@model DishFilter
+@{ ViewData["Title"] = T["Dishes"]; }
+<section class="page-heading">
+    <div><div class="eyebrow">@T["Admin"] <span> / BIT240194</span></div><h1>@T["MenuTitle"]</h1><p>@T["MenuIntro"]</p></div>
+    <a class="button primary" asp-action="Create"><span>＋</span> @T["NewDish"]</a>
+</section>
+<form method="get" asp-action="Index" class="filter-panel">
+    <div class="filters">
+        <div class="field search-field"><label asp-for="Search">@T["Search"]</label><input asp-for="Search" placeholder="@T["SearchPlaceholder"]" /></div>
+        <div class="field"><label asp-for="CategoryId">@T["Category"]</label><select asp-for="CategoryId"><option value="">@T["AllCategories"]</option>@foreach (var category in Model.Categories) { <option value="@category.Id">@category.Name</option> }</select></div>
+        <div class="field"><label asp-for="Status">@T["Status"]</label><select asp-for="Status"><option value="">@T["AllStatuses"]</option><option value="available">@T["Available"]</option><option value="unavailable">@T["Unavailable"]</option></select></div>
+        <div class="field"><label asp-for="MinPrice">@T["MinPrice"]</label><input asp-for="MinPrice" type="number" step="0.01" min="0" placeholder="0" /></div>
+        <div class="field"><label asp-for="MaxPrice">@T["MaxPrice"]</label><input asp-for="MaxPrice" type="number" step="0.01" min="0" placeholder="100000" /></div>
+        <div class="field sort-field"><label asp-for="Sort">@T["Sort"]</label><select asp-for="Sort"><option value="name">@T["NameSort"]</option><option value="price_asc">@T["PriceAsc"]</option><option value="price_desc">@T["PriceDesc"]</option><option value="time_asc">@T["TimeAsc"]</option></select></div>
+    </div>
+    <div class="filter-bottom"><div asp-validation-summary="All" class="validation"></div><div class="actions"><a class="text-link" asp-action="Index">@T["Reset"]</a><button class="button dark" type="submit">@T["Apply"] <span>→</span></button></div></div>
+</form>
+<div class="results-heading"><h2>@T["Dishes"] <span class="count">@Model.Dishes.Count</span></h2><span>@Model.Dishes.Count @T["Results"]</span></div>
+@if (Model.Dishes.Count == 0)
+{
+    <div class="empty"><span class="empty-icon">⌕</span><h2>@T["Empty"]</h2><p>@T["EmptyHint"]</p></div>
+}
+else
+{
+    <div class="dish-grid">
+    @foreach (var dish in Model.Dishes)
+    {
+        var cover = dish.Images.FirstOrDefault(x => x.IsThumbnail);
+        <article class="dish-card">
+            <a asp-action="Details" asp-route-id="@dish.Id" class="card-image" aria-label="@dish.Name">
+                @if (cover is not null) { <img src="@cover.ImageUrl" alt="@dish.Name" loading="lazy" /><span class="image-fallback" hidden>@T["ImageUnavailable"]</span> }
+                else { <span class="image-fallback">@T["NoImages"]</span> }
+                <span class="status-badge @(dish.IsAvailable ? "available" : "unavailable")"><i></i>@T[dish.IsAvailable ? "Available" : "Unavailable"]</span>
+            </a>
+            <div class="card-body">
+                <div class="category-label">@dish.DishCategory.Name</div>
+                <h3><a asp-action="Details" asp-route-id="@dish.Id">@dish.Name</a></h3>
+                <p class="dish-description">@dish.Description</p>
+                <div class="dish-meta"><span>◷ @dish.PreparationTime @T["Minutes"]</span><span class="time-badge @(dish.PreparationTime <= 15 ? "quick" : "")">@T[dish.PreparationTime <= 15 ? "Quick" : "Regular"]</span></div>
+                <div class="card-bottom"><strong>@T.Price(dish.Price) <small>₫</small></strong><div><a asp-action="Edit" asp-route-id="@dish.Id">@T["Edit"]</a><a class="arrow-link" asp-action="Details" asp-route-id="@dish.Id" aria-label="@T["Details"]">↗</a></div></div>
+            </div>
+        </article>
+    }
+    </div>
+}

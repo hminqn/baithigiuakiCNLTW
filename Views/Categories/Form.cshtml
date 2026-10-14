@@ -1,0 +1,9 @@
+@model CategoryForm
+@{ var editing = Model.Id > 0; ViewData["Title"] = T[editing ? "EditCategory" : "NewCategory"]; }
+<div class="page-heading compact"><div><div class="eyebrow">@T["Categories"]</div><h1>@ViewData["Title"]</h1></div></div>
+<form method="post" asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" class="editor-panel">
+<input asp-for="Id" type="hidden" /><div asp-validation-summary="ModelOnly" class="validation"></div>
+<div class="field"><label asp-for="Name">@T["Name"] <span>*</span></label><input asp-for="Name" maxlength="120" /><span asp-validation-for="Name" class="validation"></span></div>
+<div class="field"><label asp-for="Description">@T["Description"]</label><textarea asp-for="Description" rows="4" maxlength="2000"></textarea><span asp-validation-for="Description" class="validation"></span></div>
+<div class="form-actions"><a class="button outline" asp-action="Index">@T["Cancel"]</a><button class="button primary" type="submit">@T[editing ? "Save" : "Create"]</button></div>
+</form>

@@ -1,0 +1,23 @@
+@model DishForm
+@{ var editing = Model.Id > 0; ViewData["Title"] = T[editing ? "EditDish" : "CreateDish"]; }
+<a class="back-link" asp-action="Index">← @T["Back"]</a>
+<div class="page-heading compact"><div><div class="eyebrow">@T["Admin"]</div><h1>@ViewData["Title"]</h1><p>@T["FormIntro"]</p></div></div>
+<form method="post" asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" class="editor-panel">
+    <input asp-for="Id" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="field"><label asp-for="Name">@T["Name"] <span>*</span></label><input asp-for="Name" maxlength="120" /><span asp-validation-for="Name" class="validation"></span></div>
+    <div class="form-row">
+        <div class="field"><label asp-for="Price">@T["Price"] <span>*</span></label><input asp-for="Price" type="number" min="0.01" max="999999999" step="0.01" /><span asp-validation-for="Price" class="validation"></span></div>
+        <div class="field"><label asp-for="PreparationTime">@T["PreparationTime"] <span>*</span></label><input asp-for="PreparationTime" type="number" min="1" step="1" /><span asp-validation-for="PreparationTime" class="validation"></span></div>
+    </div>
+    <div class="field"><label asp-for="DishCategoryId">@T["Category"] <span>*</span></label><select asp-for="DishCategoryId"><option value="">@T["SelectCategory"]</option>@foreach (var category in Model.Categories) { <option value="@category.Id">@category.Name</option> }</select><span asp-validation-for="DishCategoryId" class="validation"></span></div>
+    <div class="field"><label asp-for="Description">@T["Description"]</label><textarea asp-for="Description" rows="4" maxlength="2000"></textarea><span asp-validation-for="Description" class="validation"></span></div>
+    <div class="field"><label asp-for="CoverImageUrl">@T["CoverImageUrl"]</label><input asp-for="CoverImageUrl" type="text" inputmode="url" maxlength="2048" placeholder="https://…" spellcheck="false" /><span asp-validation-for="CoverImageUrl" class="validation"></span><p class="hint">@T["CoverImageUrlHint"]</p></div>
+    @if (!string.IsNullOrWhiteSpace(Model.CurrentCoverImageUrl))
+    {
+        <div class="field"><label>@T["CurrentImage"]</label><div class="gallery-image edit-image-preview"><img src="@Model.CurrentCoverImageUrl" alt="@Model.Name" /><span class="image-fallback" hidden>@T["ImageUnavailable"]</span></div></div>
+    }
+    <label class="checkbox"><input asp-for="IsAvailable" /> @T["IsAvailable"]</label>
+    <p class="hint">@T["ManageImagesHint"]</p>
+    <div class="form-actions"><a class="button outline" asp-action="Index">@T["Cancel"]</a><button class="button primary" type="submit">@T[editing ? "Save" : "Create"] →</button></div>
+</form>

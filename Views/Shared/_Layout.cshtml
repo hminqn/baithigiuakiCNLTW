@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="@(T.Vietnamese ? "vi" : "en")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] · @T["App"]</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" asp-controller="Dishes" asp-action="Index"><span class="brand-icon">♨</span>@T["App"]<span class="brand-dot">.</span></a>
+        <nav aria-label="@T["App"]">
+            <a class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Dishes" ? "active" : "")" asp-controller="Dishes" asp-action="Index">@T["Dishes"]</a>
+            <a class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Categories" ? "active" : "")" asp-controller="Categories" asp-action="Index">@T["Categories"]</a>
+        </nav>
+        <form asp-controller="Language" asp-action="Set" method="post" class="language">
+            <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+            <button type="submit" name="culture" value="en" class="@(!T.Vietnamese ? "selected" : "")" aria-pressed="@(!T.Vietnamese ? "true" : "false")">English</button>
+            <button type="submit" name="culture" value="vi" class="@(T.Vietnamese ? "selected" : "")" aria-pressed="@(T.Vietnamese ? "true" : "false")">Tiếng Việt</button>
+        </form>
+    </header>
+    <main class="container">
+        @if (TempData["Notice"] is string notice)
+        {
+            <div class="notice" role="status">@T[notice]</div>
+        }
+        @RenderBody()
+    </main>
+    <footer class="site-footer"><span>@T["Footer"]</span><span>Hoàng Minh Quân <b>BIT240194</b></span></footer>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

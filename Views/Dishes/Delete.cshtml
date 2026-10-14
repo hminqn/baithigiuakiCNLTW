@@ -1,0 +1,4 @@
+@model Dish_BIT240194
+@{ ViewData["Title"] = T["DeleteDishTitle"]; }
+<div class="editor-panel delete-panel"><div class="eyebrow">@T["Dishes"]</div><h1>@T["DeleteDishTitle"]</h1><h2>@Model.Name</h2><p>@T["DeleteDishHint"]</p>
+<form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Id" /><div class="form-actions"><a class="button outline" asp-action="Details" asp-route-id="@Model.Id">@T["Cancel"]</a><button class="button destructive" type="submit">@T["Delete"]</button></div></form></div>

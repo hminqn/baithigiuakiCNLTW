@@ -1,0 +1,13 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+artifacts/
+
+*.mdf
+*.ldf
+*.bak
+*.log
+.env
+.env.*

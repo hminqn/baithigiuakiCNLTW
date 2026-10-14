@@ -1,0 +1,15 @@
+@model ImageEditForm
+@{ ViewData["Title"] = T["EditImageUrl"]; }
+<a class="back-link" asp-action="Details" asp-route-id="@Model.DishId">← @T["BackToDish"]</a>
+<div class="page-heading compact"><div><div class="eyebrow">@Model.DishName</div><h1>@T["EditImageUrl"]</h1><p>@T["EditImageHint"]</p></div></div>
+<form asp-action="EditImage" asp-route-id="@Model.Id" method="post" class="editor-panel">
+    <input asp-for="Id" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="field">
+        <label>@T["CurrentImage"]</label>
+        <div class="gallery-image edit-image-preview"><img src="@Model.CurrentImageUrl" alt="@Model.DishName" /><span class="image-fallback" hidden>@T["ImageUnavailable"]</span></div>
+        @if (Model.IsThumbnail) { <span class="time-badge quick">@T["Thumbnail"]</span> }
+    </div>
+    <div class="field"><label asp-for="ImageUrl">@T["ImageUrl"] <span>*</span></label><input asp-for="ImageUrl" maxlength="2048" placeholder="https://…" /><span asp-validation-for="ImageUrl" class="validation"></span><p class="hint">@T["ImageHint"]</p></div>
+    <div class="form-actions"><a class="button outline" asp-action="Details" asp-route-id="@Model.DishId">@T["Cancel"]</a><button class="button primary" type="submit">@T["Save"] →</button></div>
+</form>
